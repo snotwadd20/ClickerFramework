@@ -1,14 +1,21 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
+public enum MultiplierKind { Click, Tick };
+
 public class GameManager : MonoBehaviour
 {
-    public Text resourceDisplay = null;
-    public Text tickRateDisplay = null;
-    public Text clickRateDispay = null;
+    public float beginningResources = 0.0f;
+    public float beginningTickRate = 0.0f;
+    public float beginningClickRate = 1.0f;
 
+    public Text resourceDisplay = null;
+    //public Text tickRateDisplay = null;
+    //public Text clickRateDispay = null;
+    
     private float _resource = 0;
 
     public float _debugOverwriteResource = 0;
@@ -35,6 +42,10 @@ public class GameManager : MonoBehaviour
         ClickMultipliers = new Dictionary<string, float>();
         TickMultipliers = new Dictionary<string, float>();
 
+        AddResource(beginningResources);
+        RegisterClickMult("base", beginningClickRate);
+        RegisterTickMult("base", beginningTickRate);
+        
         StartCoroutine("Tick");
     }
 
@@ -42,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         _resource += amount;
         if (resourceDisplay != null)
-            resourceDisplay.text = string.Format("{0:n0}", _resource);
+            resourceDisplay.text = string.Format("{0:n1}", _resource);
 
         return _resource;
     }//AddResource
@@ -68,7 +79,7 @@ public class GameManager : MonoBehaviour
         if (TickMultipliers.ContainsKey(type))
             TickMultipliers[type] += multiplier;
         else
-            TickMultipliers.Add(type, 1.0f+multiplier);//start at one and add to it
+            TickMultipliers.Add(type, multiplier);//start at one and add to it
 
         _tMultIsDirty = true;
     }//RegisterTickMult
@@ -82,12 +93,11 @@ public class GameManager : MonoBehaviour
             if (_tMultIsDirty)
             {
                 _tMultIsDirty = false;
-                _tickMultiplier = 1;
+                _tickMultiplier = 0;
                 foreach (KeyValuePair<string, float> mult in TickMultipliers)
                 {
-                    _tickMultiplier *= mult.Value;
+                       _tickMultiplier += mult.Value;
                 }//foreach
-                _tickMultiplier -= 1;
             }//if
             return _tickMultiplier;
         }//get
@@ -98,12 +108,12 @@ public class GameManager : MonoBehaviour
         if (ClickMultipliers.ContainsKey(type))
             ClickMultipliers[type] += multiplier;
         else
-            ClickMultipliers.Add(type, 1.0f + multiplier);//start at one and add to it
+            ClickMultipliers.Add(type, multiplier);//start at one and add to it
 
         _cMultIsDirty = true;
     }//RegisterClickMult
 
-    private float _clickMultiplier = 1.0f;
+    private float _clickMultiplier = 0f;
     private bool _cMultIsDirty = true;
     public float TotalClickMultiplier
     {
@@ -112,12 +122,14 @@ public class GameManager : MonoBehaviour
             if (_cMultIsDirty)
             {
                 _cMultIsDirty = false;
-                _clickMultiplier = 1;
+                _clickMultiplier = 0;
                 foreach (KeyValuePair<string, float> mult in ClickMultipliers)
                 {
-                    _clickMultiplier *= mult.Value;
+                    _clickMultiplier += mult.Value;
+                    
+                    print(mult.Key + " -> " + mult.Value);
                 }//foreach
-                _clickMultiplier -= 1;
+                _clickMultiplier = (float)Math.Round(_clickMultiplier, 1);
             }//if
             return _clickMultiplier;
         }//get
@@ -136,12 +148,12 @@ public class GameManager : MonoBehaviour
             _doDebugChange = false;
         }//if
 
-        if (clickRateDispay != null)
+        /*if (clickRateDispay != null)
             clickRateDispay.text = TotalClickMultiplier + "/click";
 
         if (tickRateDisplay != null)
             tickRateDisplay.text = TotalTickMultiplier + "/s";
-
+            */
 	}
 
     //SINGLETON

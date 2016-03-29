@@ -77,5 +77,6 @@ public class Buyable : MonoBehaviour
         GameManager.self.SubtractResource(Cost);
         numberOwned++;
         UpdateButtonInfo();
+        gameObject.SendMessage("OnPurchased", SendMessageOptions.DontRequireReceiver);
     }//DoPurchase
 }//Buyable

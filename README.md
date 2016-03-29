@@ -20,7 +20,7 @@ I've included a demo Unity Scene (TestScene) with most of these things hooked up
 --- STUFF THAT GOES ON BUTTONS --- 
 (these do most of the work)
 
-- Buyable.cs - Put on a button (send DoPurchase) to make it a buyable. Disables button if you can't afford it. Works with following scripts:
+- Buyable.cs - Put on a button (send "Buy" message) to make it a buyable. Disables button if you can't afford it. Works with following scripts:
 - ClickForResource.cs - Use this on a button (send OnClick) if you want to click it to generate Resource. Works fine alongside Generators.
 - MultiplyResource - Use this on a button (send OnClick) to multiply the total Resource count by n when clicked.
 - RegisterMultiplier - Use this on a button (send OnClick) to add to the total global Tick or Click multiplier when clicked.

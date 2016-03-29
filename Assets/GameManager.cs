@@ -8,8 +8,8 @@ public enum MultiplierKind { Click, Tick };
 
 public class GameManager : MonoBehaviour
 {
-    public float beginningResources = 0.0f;
-    public float beginningTickRate = 0.0f;
+    //public float beginningResources = 0.0f;
+    //public float beginningTickRate = 0.0f;
     public float beginningClickRate = 1.0f;
 
     //public Text resourceDisplay = null;
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     private Dictionary<string, float> TickMultipliers;
     
     // Use this for initialization
-    void Start ()
+    void Awake ()
     {
         if(_self == null)
             _self = this;
@@ -42,11 +42,11 @@ public class GameManager : MonoBehaviour
         ClickMultipliers = new Dictionary<string, float>();
         TickMultipliers = new Dictionary<string, float>();
 
-        AddResource(beginningResources);
+        //AddResource(beginningResources);
         RegisterClickMult("startingClickRate", beginningClickRate);
-        RegisterTickMult("startingTickRate", beginningTickRate);
+        //RegisterTickMult("startingTickRate", beginningTickRate);
         
-        StartCoroutine("Tick");
+        //StartCoroutine("Tick");
     }
 
     public float MultiplyResource(float factor)
@@ -86,6 +86,12 @@ public class GameManager : MonoBehaviour
 
     public void RegisterTickMult(string type, float multiplier)
     {
+        if (multiplier == 0)
+        {
+            Debug.LogWarning(type + " - attempting to add 0 tick multiplier. Ignoring.\nDo a check first.");
+            return;
+        }//if
+
         if (TickMultipliers.ContainsKey(type))
             TickMultipliers[type] += multiplier;
         else
@@ -120,6 +126,12 @@ public class GameManager : MonoBehaviour
 
     public void RegisterClickMult(string type, float multiplier)
     {
+        if (multiplier == 0)
+        {
+            Debug.LogWarning(type + " - attempting to add 0 click multiplier. Ignoring.");
+            return;
+        }//if
+
         if (ClickMultipliers.ContainsKey(type))
             ClickMultipliers[type] += multiplier;
         else

@@ -1,5 +1,7 @@
 # ClickerFramework
 
+This is a framework of Unity scripts to support creating a Clicker/Idle/Iterative type game (Candy Box, Cookie Clicker, Dirt Inc, etc).
+
 Framework currently only supports one primary Resource. Extra currencies might be added later via a new system.
 I've included a demo Unity Scene (TestScene) with most of these things hooked up and working in a very simple way.
 

@@ -9,14 +9,14 @@ I've included a demo Unity Scene (TestScene) with most of these things hooked up
 o GameManager.cs - A singleton. Tracks the resource and has helpful initialization and helper functions.
 
 
---- UI and Display Helpers ---
+--- UI AND DISPLAY HELPERS ---
 
 o DisplayResource - Use on a UI Text object (or linked to one) to display the current amount of Resource
 
 o DisplayMultiplier - Use on a UI Text object (or linked to one) to display either the total Tick multiplier or Click multiplier
 
 
---- Stuff that goes on buttons ---
+--- STUFF THAT GOES ON BUTTONS --- (these do most of the work)
 
 o Buyable.cs - Put on a button (send DoPurchase) to make it a buyable. Disables button if you can't afford it. Works with following scripts:
 

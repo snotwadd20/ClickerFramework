@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public float beginningTickRate = 0.0f;
     public float beginningClickRate = 1.0f;
 
-    public Text resourceDisplay = null;
+    //public Text resourceDisplay = null;
     //public Text tickRateDisplay = null;
     //public Text clickRateDispay = null;
     
@@ -43,17 +43,27 @@ public class GameManager : MonoBehaviour
         TickMultipliers = new Dictionary<string, float>();
 
         AddResource(beginningResources);
-        RegisterClickMult("base", beginningClickRate);
-        RegisterTickMult("base", beginningTickRate);
+        RegisterClickMult("startingClickRate", beginningClickRate);
+        RegisterTickMult("startingTickRate", beginningTickRate);
         
         StartCoroutine("Tick");
     }
 
+    public float MultiplyResource(float factor)
+    {
+        _resource *= factor;
+
+        //if (resourceDisplay != null)
+            //resourceDisplay.text = string.Format("{0:n1}", _resource);
+
+        return Resource;
+    }//MultiplyResource
+
     public float AddResource(float amount)
     {
         _resource += amount;
-        if (resourceDisplay != null)
-            resourceDisplay.text = string.Format("{0:n1}", _resource);
+        //if (resourceDisplay != null)
+            //resourceDisplay.text = string.Format("{0:n1}", _resource);
 
         return _resource;
     }//AddResource
@@ -97,7 +107,12 @@ public class GameManager : MonoBehaviour
                 foreach (KeyValuePair<string, float> mult in TickMultipliers)
                 {
                        _tickMultiplier += mult.Value;
+
+                    print(mult.Key + " -> " + mult.Value);
+
                 }//foreach
+                _tickMultiplier = (float)Math.Round(_tickMultiplier, 1); //Drop insignificant digits (floating point bs)
+
             }//if
             return _tickMultiplier;
         }//get
@@ -129,7 +144,7 @@ public class GameManager : MonoBehaviour
                     
                     print(mult.Key + " -> " + mult.Value);
                 }//foreach
-                _clickMultiplier = (float)Math.Round(_clickMultiplier, 1);
+                _clickMultiplier = (float)Math.Round(_clickMultiplier, 1); //Drop insignificant digits (floating point bs)
             }//if
             return _clickMultiplier;
         }//get

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
 public class DisplayMultiplier : MonoBehaviour
@@ -21,16 +20,16 @@ public class DisplayMultiplier : MonoBehaviour
     {
         float multiplier = 0;
 
-        if (multiplierKind == MultiplierKind.Tick)
+        if (multiplierKind == MultiplierKind.Tick && GameManager.self)
         {
             multiplier = GameManager.self.TotalTickMultiplier;
         }//if
-        else if (multiplierKind == MultiplierKind.Click)
+        else if (multiplierKind == MultiplierKind.Click && GameManager.self)
         {
             multiplier = GameManager.self.TotalClickMultiplier;
         }//else if
 
-        textDisplayUI.text = "Generate: $" + string.Format("{0:n1}", multiplier +" / " + (multiplierKind.ToString()));
+        textDisplayUI.text = "$" + string.Format("{0:n1}", multiplier +" / " + (multiplierKind.ToString()));
 
     }
 }

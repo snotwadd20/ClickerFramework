@@ -1,7 +1,9 @@
 # ClickerFramework
 
 This is a framework of Unity scripts to support creating a Clicker/Idle/Iterative type game (Candy Box, Cookie Clicker, Dirt Inc, etc).
+
 The Framework currently only supports one primary Resource. Extra currencies might be added later via a new system.
+
 I've included a demo Unity Scene (TestScene) with most of these things hooked up and working in a very simple way.
 
 --- CORE FILES ---
@@ -15,7 +17,8 @@ I've included a demo Unity Scene (TestScene) with most of these things hooked up
 - DisplayMultiplier.cs - Use on a UI Text object (or linked to one) to display either the total Tick multiplier or Click multiplier
 
 
---- STUFF THAT GOES ON BUTTONS --- (these do most of the work)
+--- STUFF THAT GOES ON BUTTONS --- 
+(these do most of the work)
 
 - Buyable.cs - Put on a button (send DoPurchase) to make it a buyable. Disables button if you can't afford it. Works with following scripts:
 - ClickForResource.cs - Use this on a button (send OnClick) if you want to click it to generate Resource. Works fine alongside Generators.

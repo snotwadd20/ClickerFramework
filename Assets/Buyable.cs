@@ -56,7 +56,7 @@ public class Buyable : MonoBehaviour
 
         if (priceText != null && numberOwned < maxOwned)
         {
-            priceText.text = "$" + string.Format("{0:n2}", Math.Round(Cost, 1));
+            priceText.text = string.Format("${0:n2}", Cost);
             //priceText.enabled = numberOwned < maxOwned;
         }//if
 
@@ -68,10 +68,11 @@ public class Buyable : MonoBehaviour
     {
         get
         {
-            return baseCost * Mathf.Pow(costMult, numberOwned);
+            return Mathf.Round((baseCost * Mathf.Pow(costMult, numberOwned)));
         }
     }
 
+    public void Buy() { DoPurchase(); } 
     public void DoPurchase()
     {
         GameManager.self.SubtractResource(Cost);

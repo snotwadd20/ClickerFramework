@@ -39,7 +39,7 @@ public class Generator : MonoBehaviour
     {
         while (true)
         {
-            float resources = (resourcePerSecond * currentLevel);
+            float resources = (resourcePerSecond * currentLevel + GameManager.self.TotalTickMultiplier);
             GameManager.self.AddResource(resources);
 
             if (printTick)

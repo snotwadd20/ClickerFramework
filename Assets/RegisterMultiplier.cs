@@ -6,22 +6,22 @@ public class RegisterMultiplier : MonoBehaviour
 {
     public MultiplierKind kindOfMultiplier = MultiplierKind.Tick;
     public string bonusKeyword = "general bonus";
-    public float amountToAddToMultiplier = 0.0f;
+    public float increaseBy = 0.0f;
 
-    public Text displayAmountToAdd = null;
+    public Text displayIncreaseByText = null;
 
     void Start()
     {
-        if (displayAmountToAdd != null)
-            displayAmountToAdd.text = string.Format("{0:n1}", amountToAddToMultiplier);
+        if (displayIncreaseByText != null)
+            displayIncreaseByText.text = string.Format("${0:n2}", increaseBy);
     }
     void OnClick()
     {
         if (kindOfMultiplier == MultiplierKind.Click)
-            GameManager.self.RegisterClickMult(bonusKeyword, amountToAddToMultiplier);
+            GameManager.self.RegisterClickMult(bonusKeyword, increaseBy);
 
         else if (kindOfMultiplier == MultiplierKind.Tick)
-            GameManager.self.RegisterTickMult(bonusKeyword, amountToAddToMultiplier);
+            GameManager.self.RegisterTickMult(bonusKeyword, increaseBy);
 
         
     }

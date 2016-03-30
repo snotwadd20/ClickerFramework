@@ -17,6 +17,6 @@ public class DisplayResource : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        textDisplayUI.text = "$" + string.Format("{0:n2}", GameManager.self.Resource);
+        textDisplayUI.text = "$" + string.Format("{0:N2}", GameManager.self.Resource);
     }
 }

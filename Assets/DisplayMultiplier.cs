@@ -29,7 +29,9 @@ public class DisplayMultiplier : MonoBehaviour
             multiplier = GameManager.self.TotalClickMultiplier;
         }//else if
 
-        textDisplayUI.text = "$" + string.Format("{0:n1}", multiplier +" / " + (multiplierKind.ToString()));
-
+        if (multiplier >= 1 || multiplier == 0)
+            textDisplayUI.text = string.Format("${0:N2}", multiplier + " per " + (multiplierKind.ToString()));
+        else
+            textDisplayUI.text = string.Format("{0:N0}¢ per {1}", multiplier * 100, multiplierKind.ToString());
     }
 }

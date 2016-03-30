@@ -117,7 +117,6 @@ public class GameManager : MonoBehaviour
                     print(mult.Key + " -> " + mult.Value);
 
                 }//foreach
-                _tickMultiplier = (float)Math.Round(_tickMultiplier, 1); //Drop insignificant digits (floating point bs)
 
             }//if
             return _tickMultiplier;
@@ -156,7 +155,6 @@ public class GameManager : MonoBehaviour
                     
                     print(mult.Key + " -> " + mult.Value);
                 }//foreach
-                _clickMultiplier = (float)Math.Round(_clickMultiplier, 1); //Drop insignificant digits (floating point bs)
             }//if
             return _clickMultiplier;
         }//get

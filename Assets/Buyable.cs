@@ -12,8 +12,8 @@ public class Buyable : MonoBehaviour, IPrice, IQuantity, IMaximum
 
     public Button theButton = null;
     //public Text priceText = null;
-    public Text numberOwnedText = null;
-    public Text maxOwnedText = null;
+    //public Text numberOwnedText = null;
+    //public Text maxOwnedText = null;
 
     public MonoBehaviour[] disableBehaviorsOnMax = null;
     public GameObject[] disableObjectsOnMax = null;
@@ -57,13 +57,14 @@ public class Buyable : MonoBehaviour, IPrice, IQuantity, IMaximum
     }//ShutDown
     public void UpdateButtonInfo()
     {
+        /*
         if (maxOwnedText != null)
             maxOwnedText.text = string.Format("{0}", maxOwned);
 
         if (numberOwnedText != null)
             numberOwnedText.text = string.Format("{0}", numberOwned);
 
-        /*
+        
         if (priceText != null && numberOwned < maxOwned)
         {
             priceText.text = string.Format("${0:n2}", Price);

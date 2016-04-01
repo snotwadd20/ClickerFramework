@@ -6,6 +6,12 @@ public class DisplayMultiplier : MonoBehaviour
     public Text textDisplayUI = null;
     public MultiplierKind multiplierKind = MultiplierKind.Click;
 
+    public string prefix = "";
+    public string separator = "/";
+    public string suffix = "";
+
+    public int maximumDecimalPlaces = 2;
+
     // Use this for initialization
     void Start ()
     {
@@ -30,8 +36,8 @@ public class DisplayMultiplier : MonoBehaviour
         }//else if
 
         if (multiplier >= 1 || multiplier == 0)
-            textDisplayUI.text = string.Format("${0:N2}", multiplier + " per " + (multiplierKind.ToString()));
+            textDisplayUI.text = string.Format("${0:N" + maximumDecimalPlaces + "}{1}{2}", multiplier, separator, (multiplierKind.ToString()));
         else
-            textDisplayUI.text = string.Format("{0:N0}¢ per {1}", multiplier * 100, multiplierKind.ToString());
+            textDisplayUI.text = string.Format("{0:N0}¢{1}{2}", multiplier * 100, separator, multiplierKind.ToString());
     }
 }

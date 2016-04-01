@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
                 {
                        _tickMultiplier += mult.Value;
 
-                    print(mult.Key + " -> " + mult.Value);
+                    //print(mult.Key + " -> " + mult.Value);
 
                 }//foreach
 
@@ -153,7 +153,7 @@ public class GameManager : MonoBehaviour
                 {
                     _clickMultiplier += mult.Value;
                     
-                    print(mult.Key + " -> " + mult.Value);
+                    //aprint(mult.Key + " -> " + mult.Value);
                 }//foreach
             }//if
             return _clickMultiplier;

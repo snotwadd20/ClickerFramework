@@ -62,6 +62,10 @@ public class Generator : MonoBehaviour
 
     }//Update
 
+    public float TotalResourcePerSecond(int level)
+    {
+        return (resourcePerSecond * level + GameManager.self.TotalTickMultiplier); 
+    }
 
     public IEnumerator Tick()
     {
@@ -69,13 +73,10 @@ public class Generator : MonoBehaviour
         isStarted = true;
         while (true)
         {
-            float resources = (resourcePerSecond * currentLevel + GameManager.self.TotalTickMultiplier);
-            GameManager.self.AddResource(resources);
+            GameManager.self.AddResource(TotalResourcePerSecond(currentLevel));
 
             if (printTick)
-                print(name + " -> TICK (" + generateAfterSeconds + "s) for $" + resources);
-
-
+                print(name + " -> TICK (" + generateAfterSeconds + "s) for $" + TotalResourcePerSecond(currentLevel));
 
             while (timer < generateAfterSeconds)
             {

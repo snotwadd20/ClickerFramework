@@ -10,7 +10,7 @@ public class DisplayMaximum : MonoBehaviour
     public string prefix = "";
     public string suffix = "";
 
-    public int maximumDecimalPlaces = 2;
+    public int maximumDecimalPlaces = 0;
 
     // Use this for initialization
     void Start()

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System;
 
-public class Buyable : MonoBehaviour, IPrice
+public class Buyable : MonoBehaviour, IPrice, IQuantity, IMaximum
 {
     public float baseCost = 1.0f;
     public float costMult = 1.15f; //1.07-1.15 is a good range
@@ -36,6 +36,15 @@ public class Buyable : MonoBehaviour, IPrice
             ShutDown();
         }//if
     }//lateUpdate
+
+    public int Maximum
+    {
+        get { return maxOwned; }
+    }
+    public int Quantity
+    {
+        get { return numberOwned; }
+    }
 
     private void ShutDown()
     {

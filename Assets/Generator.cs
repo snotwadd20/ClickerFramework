@@ -7,7 +7,7 @@ public class Generator : MonoBehaviour
 
     public float bonusCash = 0.0f;
 
-    public float generateAfterSeconds = 1.0f;
+    public float tickDuration = 1.0f;
 
     public bool startImmediately = false;
     public bool isStarted = false;
@@ -76,12 +76,12 @@ public class Generator : MonoBehaviour
             GameManager.self.AddResource(TotalResourcePerSecond(currentLevel));
 
             if (printTick)
-                print(name + " -> TICK (" + generateAfterSeconds + "s) for $" + TotalResourcePerSecond(currentLevel));
+                print(name + " -> TICK (" + tickDuration + "s) for $" + TotalResourcePerSecond(currentLevel));
 
-            while (timer < generateAfterSeconds)
+            while (timer < tickDuration)
             {
                 timer += Time.deltaTime;
-                progress = timer / generateAfterSeconds;
+                progress = timer / tickDuration;
                 yield return new WaitForEndOfFrame();
             }//while
             timer = 0;

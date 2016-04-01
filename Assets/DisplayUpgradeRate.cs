@@ -45,7 +45,7 @@ public class DisplayUpgradeRate : MonoBehaviour
             prefix, 
             generator.TotalResourcePerSecond((currentOrNext == UpgradeRateType.Current) ? generator.currentLevel : generator.currentLevel + 1),
             separator,
-            generator.generateAfterSeconds,
+            generator.tickDuration,
             suffix);
     }
 }

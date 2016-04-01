@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System;
 
-public class Buyable : MonoBehaviour
+public class Buyable : MonoBehaviour, IPrice
 {
     public float baseCost = 1.0f;
     public float costMult = 1.15f; //1.07-1.15 is a good range
@@ -11,7 +11,7 @@ public class Buyable : MonoBehaviour
     public int maxOwned = int.MaxValue;
 
     public Button theButton = null;
-    public Text priceText = null;
+    //public Text priceText = null;
     public Text numberOwnedText = null;
     public Text maxOwnedText = null;
 
@@ -25,7 +25,7 @@ public class Buyable : MonoBehaviour
     {
         
         UpdateButtonInfo();
-        _debugCurrentCost = Cost;
+        _debugCurrentCost = Price;
         
     }//Update
 
@@ -54,28 +54,30 @@ public class Buyable : MonoBehaviour
         if (numberOwnedText != null)
             numberOwnedText.text = string.Format("{0}", numberOwned);
 
+        /*
         if (priceText != null && numberOwned < maxOwned)
         {
-            priceText.text = string.Format("${0:n2}", Cost);
+            priceText.text = string.Format("${0:n2}", Price);
             //priceText.enabled = numberOwned < maxOwned;
         }//if
+        */
 
         if (theButton != null)
-            theButton.interactable = ((GameManager.self.Resource >= Cost) && (numberOwned < maxOwned));
+            theButton.interactable = ((GameManager.self.Resource >= Price) && (numberOwned < maxOwned));
     }
 
-    public float Cost
+    public float Price
     {
         get
         {
-            return Mathf.Round((baseCost * Mathf.Pow(costMult, numberOwned)));
+            return baseCost * Mathf.Pow(costMult, numberOwned);
         }
     }
 
     public void Buy() { DoPurchase(); } 
     public void DoPurchase()
     {
-        GameManager.self.SubtractResource(Cost);
+        GameManager.self.SubtractResource(Price);
         numberOwned++;
         UpdateButtonInfo();
         gameObject.SendMessage("OnPurchased", SendMessageOptions.DontRequireReceiver);

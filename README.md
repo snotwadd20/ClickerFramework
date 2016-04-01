@@ -19,7 +19,7 @@ I've included a demo Unity Scene (TestScene) with most of these things hooked up
 --- Progress Bars ---
 (Any progress bar that implements the IValue interface will work.)
 
-IValue.cs - Interface that requires an accessor "Value" so that the Generator can set it.
+- IValue.cs - Interface that requires an accessor "Value" so that the Generator can set it.
 ProgressBarText.cs - Attach this to a Text UI object and link it to a Generator. The text field will display, numerically, the progress depending on type: from 0 to 100% (Percentage) or 0.0 to 1.0 (Factor) 
 
 --- STUFF THAT GOES ON BUTTONS --- 
@@ -33,6 +33,6 @@ ProgressBarText.cs - Attach this to a Text UI object and link it to a Generator.
 
 
 --- WRAPPERS ---
-
 (Files to make this work with certain plugins. Delete these if you don't use those plugins)
-ProgressBarUI.cs & ProgressBarSprite.cs - These inherit from a script in the Unity Store Package "Power Progress Bars" and also implement the IValue interface. This allows me to use "Power Progress Bars" scripts with my IValue interface 
+
+- ProgressBarUI.cs & ProgressBarSprite.cs - These inherit from a script in the Unity Store Package "Power Progress Bars" and also implement the IValue interface. This allows me to use "Power Progress Bars" scripts with my IValue interface 

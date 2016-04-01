@@ -35,7 +35,7 @@ public class DisplayMultiplier : MonoBehaviour
             multiplier = GameManager.self.TotalClickMultiplier;
         }//else if
 
-        if (multiplier >= 1 || multiplier == 0)
+        if (multiplier >= 1)
             textDisplayUI.text = string.Format("${0:N" + maximumDecimalPlaces + "}{1}{2}", multiplier, separator, (multiplierKind.ToString()));
         else
             textDisplayUI.text = string.Format("{0:N0}¢{1}{2}", multiplier * 100, separator, multiplierKind.ToString());

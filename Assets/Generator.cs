@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Generator : MonoBehaviour
 {
+    public bool useGlobalMultipliers = false;
     public float resourcePerSecond = 0.1f;
 
     public float bonusCash = 0.0f;
@@ -64,7 +65,7 @@ public class Generator : MonoBehaviour
 
     public float TotalResourcePerSecond(int level)
     {
-        return (resourcePerSecond * level + GameManager.self.TotalTickMultiplier); 
+        return (resourcePerSecond * level + ((useGlobalMultipliers) ? GameManager.self.TotalTickMultiplier : 0)); 
     }
 
     public IEnumerator Tick()

@@ -5,28 +5,39 @@ using System;
 
 public class Buyable : MonoBehaviour, IPrice, IQuantity, IMaximum
 {
+    public Currency currency = null;
+
     public float baseCost = 1.0f;
     public float costMult = 1.15f; //1.07-1.15 is a good range
     public int numberOwned = 0;
     public int maxOwned = int.MaxValue;
 
     public Button theButton = null;
-    //public Text priceText = null;
-    //public Text numberOwnedText = null;
-    //public Text maxOwnedText = null;
 
     public MonoBehaviour[] disableBehaviorsOnMax = null;
     public GameObject[] disableObjectsOnMax = null;
 
     public float _debugCurrentCost = 0;
 
+    void Start()
+    {
+        if (currency == null && Currency.Default == null)
+        {
+            Debug.LogWarning(this.GetType() + ": No Currency specified. Disabling.");
+            enabled = false;
+            return;
+        }//if
+        else if (currency == null && Currency.Default != null)
+        {
+            currency = Currency.Default;
+        }//else if
+    }//Start
+
     // Update is called once per frame
     void Update()
     {
-        
         UpdateButtonInfo();
-        _debugCurrentCost = Price;
-        
+        _debugCurrentCost = Price;   
     }//Update
 
     void LateUpdate()
@@ -57,23 +68,8 @@ public class Buyable : MonoBehaviour, IPrice, IQuantity, IMaximum
     }//ShutDown
     public void UpdateButtonInfo()
     {
-        /*
-        if (maxOwnedText != null)
-            maxOwnedText.text = string.Format("{0}", maxOwned);
-
-        if (numberOwnedText != null)
-            numberOwnedText.text = string.Format("{0}", numberOwned);
-
-        
-        if (priceText != null && numberOwned < maxOwned)
-        {
-            priceText.text = string.Format("${0:n2}", Price);
-            //priceText.enabled = numberOwned < maxOwned;
-        }//if
-        */
-
         if (theButton != null)
-            theButton.interactable = ((GameManager.self.Resource >= Price) && (numberOwned < maxOwned));
+            theButton.interactable = ((currency.Amount >= Price) && (numberOwned < maxOwned));
     }
 
     public float Price
@@ -87,7 +83,8 @@ public class Buyable : MonoBehaviour, IPrice, IQuantity, IMaximum
     public void Buy() { DoPurchase(); } 
     public void DoPurchase()
     {
-        GameManager.self.SubtractResource(Price);
+        currency.SubtractAmount(Price);
+        //GameManager.self.SubtractResource(Price);
         numberOwned++;
         UpdateButtonInfo();
         gameObject.SendMessage("OnPurchased", SendMessageOptions.DontRequireReceiver);

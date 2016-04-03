@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class DisplayUpgradeRate : MonoBehaviour
+public class DisplayGeneratorRate : MonoBehaviour
 {
-    public enum UpgradeRateType { Current, Next }
-    public UpgradeRateType currentOrNext = UpgradeRateType.Next;
+    public Generator generator = null;
+
+    public enum GeneratorRateType { Current, Next }
+    public GeneratorRateType currentOrNext = GeneratorRateType.Next;
 
     public Text textDisplayUI = null;
-    public Generator generator = null;
 
     public string prefix = "";
     public string separator = "/";
@@ -43,9 +44,9 @@ public class DisplayUpgradeRate : MonoBehaviour
         _str = "{0}{1:N"+ maximumDecimalPlaces + "}{2}{3:N" + maximumDecimalPlaces + "}{4}";
         textDisplayUI.text = string.Format(_str, 
             prefix, 
-            generator.TotalResourcePerSecond((currentOrNext == UpgradeRateType.Current) ? generator.currentLevel : generator.currentLevel + 1),
+            generator.TotalAmountPerClick((currentOrNext == GeneratorRateType.Current) ? generator.currentLevel : generator.currentLevel + 1),
             separator,
-            generator.tickDuration,
+            generator.tickDurationInSeconds,
             suffix);
     }
 }

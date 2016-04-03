@@ -8,20 +8,22 @@ I've included a demo Unity Scene (TestScene) with most of these things hooked up
 
 --- CORE FILES ---
 
-- GameManager.cs - A singleton. Tracks the resource and has helpful initialization and helper functions.
+- Currency.cs - Tracks a currency type and global bonuses associated with it. Game must have at least one currency.
 - Generator.cs - Generates Resource every n seconds (every tick) - basically a building. Can have many of these.  Put on a button with a Buyable script if you want the ability to to be purchaseable/upgradeable (send DoPurchase). 
-- ClickForResource.cs - Use this on a button (send OnClick) if you want to click it to generate Resource. Works fine alongside Generators.
+- ClickForCurrency.cs - Use this on a button (send OnClick) if you want to click it to generate Resource. 
 
 --- UI AND DISPLAY HELPERS ---
 (Use these on UI Text objects, or linked to one, to display information about the game or objects in it)
 
+- DisplayCurrency.cs - Display the amount of money currently stored in the linked Currency
+- DisplayCurrencyRate.cs - Displays a tick or click rate of a currency
+- DisplayGeneratorRate.cs - Displays the rate at which a generator generates currency
 - DisplayMaximum.cs - Display the Maximum of any script that implements IMaximum
 - DisplayMultiplier.cs - Display either the total Tick multiplier or Click multiplier
 - DisplayPrice.cs - Display the Price of any script that implements IPrice
 - DisplayQuantity - Display the Quantity of any script that implements IQuantity
 - DisplayQuantAndMax.cs - Displays Quantity and Max together, one after the other.
-- DisplayResource.cs - Display the current amount of Resource
-- DisplayUpgradeRate.cs - Display the Upgrade Rate of a generator
+- DisplayValue.cs - Display the current Value of a script that implements IValue
 
 --- Progress Bars ---
 (Any progress bar that implements the IValue interface will work.)
@@ -31,14 +33,11 @@ I've included a demo Unity Scene (TestScene) with most of these things hooked up
 --- STUFF THAT GOES ON BUTTONS --- 
 (these do most of the work)
 
+- AddToRate.cs - Put on a button. Send "OnClick" message to add to a currency's global click or tick rates
 - Buyable.cs - Put on a button (send "Buy" message) to make it a buyable. Disables button if you can't afford it. Works with following scripts:
-
-- MultiplyResource - Use this on a button (send OnClick) to multiply the total Resource count by n when clicked.
-- RegisterMultiplier - Use this on a button (send OnClick) to add to the total global Tick or Click multiplier when clicked.
-
-
+- MultiplyCurrency - Use this on a button (send OnClick) to multiply the linkes currency total by n when clicked. Use with a buyable, and the price gets subtracted before the multiplication.
 
 --- WRAPPERS ---
 (Files to make this work with certain plugins. Delete these if you don't use those plugins)
 
-- ProgressBarUI.cs & ProgressBarSprite.cs - These inherit from a script in the Unity Store Package "Power Progress Bars" and also implement the IValue interface. This allows me to use "Power Progress Bars" scripts with my IValue interface 
+- ProgressBarUI.cs & ProgressBarSprite.cs - These inherit from a script in the Unity Store Package "Power Progress Bars" and also implement the IValue interface. This allows me to use "Power Progress Bars" scripts with my IValue interface d

@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class DisplayResource : MonoBehaviour
+public class DisplayCurrency : MonoBehaviour
 {
+    public Currency currency = null;
     public Text textDisplayUI = null;
     public string prefix = "$";
     public string suffix = "";
@@ -23,6 +24,6 @@ public class DisplayResource : MonoBehaviour
     void Update()
     {
         _str = "{0}{1:N" + maximumDecimalPlaces + "}{2}";
-        textDisplayUI.text =  string.Format(_str, prefix, GameManager.self.Resource, suffix);
+        textDisplayUI.text =  string.Format(_str, prefix, currency.Amount, suffix);
     }
 }

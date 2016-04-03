@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AddToRate : MonoBehaviour
+public class AddCurrencyBonus : MonoBehaviour
 {
     public enum RateKind { Click, Tick };
     public RateKind rateKind = RateKind.Click;

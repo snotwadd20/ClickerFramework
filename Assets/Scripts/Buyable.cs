@@ -80,6 +80,8 @@ public class Buyable : MonoBehaviour, IPrice, IQuantity, IMaximum
         }
     }
 
+    //Why not?
+    public void Purchase() { DoPurchase(); }
     public void Buy() { DoPurchase(); } 
     public void DoPurchase()
     {

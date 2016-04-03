@@ -6,7 +6,7 @@ public class DisplayGeneratorRate : MonoBehaviour
     public Generator generator = null;
 
     public enum GeneratorRateType { Current, Next }
-    public GeneratorRateType currentOrNext = GeneratorRateType.Next;
+    public GeneratorRateType currentOrNext = GeneratorRateType.Current;
 
     public Text textDisplayUI = null;
 

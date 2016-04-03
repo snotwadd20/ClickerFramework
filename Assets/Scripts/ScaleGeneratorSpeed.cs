@@ -4,7 +4,7 @@ using System.Collections;
 public class ScaleGeneratorSpeed : MonoBehaviour
 {
     public Generator generator = null;
-    public float speedMultiplier = 2.0f;
+    public float speedUpBy = 2.0f;
     
     void Start()
     {
@@ -18,6 +18,6 @@ public class ScaleGeneratorSpeed : MonoBehaviour
     public void Activate() { OnPurchased(); }
     public void OnPurchased()
     {
-        generator.tickDurationInSeconds /= speedMultiplier;
+        generator.tickDurationInSeconds /= speedUpBy;
     }//OnPurchased
 }

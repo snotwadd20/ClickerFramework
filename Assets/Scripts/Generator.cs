@@ -3,10 +3,13 @@ using System.Collections;
 
 public class Generator : MonoBehaviour
 {
+    public enum GeneratorType { Click, Tick }
     //---------------------------------------------
     // VARIABLES AND ACCESSORS
     //---------------------------------------------
     public Currency currency = null;
+    public GeneratorType generatorType = GeneratorType.Tick;
+    private GeneratorType _cachedType = GeneratorType.Tick;
 
     /// <summary>
     /// This should be a script that implements IValue
@@ -20,15 +23,18 @@ public class Generator : MonoBehaviour
     public bool useGlobalTickRate = false;
 
     public int currentLevel = 0;
-    
+
+    //public bool activateAfterClick = false;
     
     public bool _debugPrintTick = false;
 
     private float _progress = 0.0f;
     public float progress { get { return _progress; } set { _progress = value; } }
 
-    private bool _isStarted = false;
-    public bool isStarted { get { return _isStarted; } }
+    private bool _tickStarted = false;
+    //public bool tickStarted { get { return _tickStarted; } }
+
+    private bool _clickInProgress = false;
 
     //---------------------------------------------
     // METHODS
@@ -64,12 +70,19 @@ public class Generator : MonoBehaviour
 
             progressBar = (MonoBehaviour)_pbValue;
         }
+        _cachedType = generatorType;
 
-        StartCoroutine(Tick());
+        if (generatorType == GeneratorType.Tick)
+            StartCoroutine(Tick());
     }
 
     void Update()
     {
+        if(generatorType != _cachedType)
+        {
+            ChangeGeneratorType(generatorType);
+        }//if
+
         if (_pbValue != null && currentLevel > 0)
         {
             _pbValue.Value = progress;
@@ -77,21 +90,63 @@ public class Generator : MonoBehaviour
 
     }//Update
 
+    public void ChangeGeneratorType(GeneratorType type)
+    {
+        generatorType = type;
+        _cachedType = generatorType;
+
+        if (type == GeneratorType.Tick && !_tickStarted)
+            StartCoroutine(Tick());
+    }
+
     public float TotalAmountPerClick(int level)
     {
         return (amountPerLevelPerTick * level + ((useGlobalTickRate) ? currency.TickRate : 0)); 
     }
 
-    public IEnumerator Tick()
+    private IEnumerator Tick()
     {
-        float timer = 0.0f;
-        _isStarted = true;
-        while (true)
+        if (!_tickStarted) // Throw it away if there's  already a Tick going. Just to be sure we don't end up with multiples per generator.
         {
+            float timer = 0.0f;
+            _tickStarted = true;
+            while (generatorType == GeneratorType.Tick)
+            {
+                if (_debugPrintTick)
+                    print(name + " -> TICK (" + tickDurationInSeconds + "s) for $" + TotalAmountPerClick(currentLevel));
+
+                while (timer < tickDurationInSeconds)
+                {
+                    timer += Time.deltaTime;
+                    progress = timer / tickDurationInSeconds;
+                    yield return new WaitForEndOfFrame();
+                }//while
+                timer = 0;
+                currency.AddAmount(TotalAmountPerClick(currentLevel));
+
+                //yield return new WaitForSeconds(generateAfterSeconds);
+                yield return new WaitForEndOfFrame();
+
+            }//while
+            _tickStarted = false;
+        }//if
+        else
+        {
+            Debug.LogWarning(this.GetType() + " is trying to start multiple Tick() coroutines");
+        }//else
+    }//Tick
+
+    private IEnumerator Click()
+    {
+        if (!_clickInProgress && generatorType == GeneratorType.Click) //Throw it away if there's already been a click
+        {
+            _clickInProgress = true;
+            float timer = 0.0f;
+
             if (_debugPrintTick)
                 print(name + " -> TICK (" + tickDurationInSeconds + "s) for $" + TotalAmountPerClick(currentLevel));
 
-            while (timer < tickDurationInSeconds)
+            while (timer < tickDurationInSeconds && generatorType == GeneratorType.Click)
             {
                 timer += Time.deltaTime;
                 progress = timer / tickDurationInSeconds;
@@ -99,13 +154,18 @@ public class Generator : MonoBehaviour
             }//while
             timer = 0;
             currency.AddAmount(TotalAmountPerClick(currentLevel));
+            _clickInProgress = false;
+        }
+        yield return new WaitForEndOfFrame();
+    }//Click
 
-            //yield return new WaitForSeconds(generateAfterSeconds);
-            yield return new WaitForEndOfFrame();
-
-        }//while
-
-    }//Tick
+    public void OnClick()
+    {
+        if(generatorType == GeneratorType.Click)
+        {
+            StartCoroutine(Click());
+        }//if
+    }//OnClick
 
     
     

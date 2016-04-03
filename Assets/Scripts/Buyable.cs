@@ -13,7 +13,7 @@ public class Buyable : MonoBehaviour, IPrice, IQuantity, IMaximum
     public int maxOwned = int.MaxValue;
 
     public Button theButton = null;
-
+    
     public MonoBehaviour[] disableBehaviorsOnMax = null;
     public GameObject[] disableObjectsOnMax = null;
 

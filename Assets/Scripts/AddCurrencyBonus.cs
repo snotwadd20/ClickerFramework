@@ -42,6 +42,7 @@ public class AddCurrencyBonus : MonoBehaviour
         }//else
     }//AddCurrency
 
+    void OnPurchased() { OnClick(); }
 	void OnClick()
     {
         DoRateAdd();

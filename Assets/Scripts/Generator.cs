@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Generator : MonoBehaviour
@@ -24,8 +25,11 @@ public class Generator : MonoBehaviour
 
     public int currentLevel = 0;
 
+    public Button myButton = null;
+
+
     //public bool activateAfterClick = false;
-    
+
     public bool _debugPrintTick = false;
 
     private float _progress = 0.0f;
@@ -74,10 +78,16 @@ public class Generator : MonoBehaviour
 
         if (generatorType == GeneratorType.Tick)
             StartCoroutine(Tick());
+
+        if (myButton == null)
+        {
+            myButton = gameObject.GetComponentInParent<Button>();
+        }//if
     }
 
     void Update()
     {
+        
         if(generatorType != _cachedType)
         {
             ChangeGeneratorType(generatorType);
@@ -88,6 +98,10 @@ public class Generator : MonoBehaviour
             _pbValue.Value = progress;
         }//if
 
+        if(myButton != null && currency.maxAmount > 0)
+        {
+            myButton.interactable = (currency.Amount < currency.maxAmount);
+        }//if
     }//Update
 
     public void ChangeGeneratorType(GeneratorType type)

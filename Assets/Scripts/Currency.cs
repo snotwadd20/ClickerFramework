@@ -15,7 +15,12 @@ public class Currency : MonoBehaviour
     //---------------------------------------------------------------
     private Dictionary<string, float> ClickRates;
     private Dictionary<string, float> TickRates;
-    
+
+    //---------------------------------------------------------------
+    // VARIABLES
+    //---------------------------------------------------------------
+    public float maxAmount = float.MinValue;
+
     //---------------------------------------------------------------
     // DEBUG TOOLS FOR INSPECTOR
     //---------------------------------------------------------------

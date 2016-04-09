@@ -47,7 +47,6 @@ public class ActivationChain: MonoBehaviour
         if(myButton == null)
         {
             myButton = gameObject.GetComponentInParent<Button>();
-            //print(myButton.onClick.ToString());
         }//if
     }//Start
 

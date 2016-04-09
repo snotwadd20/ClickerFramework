@@ -28,7 +28,7 @@ public class Currency : MonoBehaviour
     //---------------------------------------------------------------
     private float _amount = 0;
     public float Amount { get { return _amount; } }
-
+    public float _AmountRO = 0;
     /// <summary>
     /// Calculates the total ClickRate by adding up all the different "sorted" bonuses in ClickRates
     /// </summary>
@@ -199,6 +199,9 @@ public class Currency : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+
+        _AmountRO = Amount;
+
         if (_doDebugChange)
         {
             if(_debugOverwriteCurrency > 0)

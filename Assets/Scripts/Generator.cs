@@ -50,7 +50,7 @@ public class Generator : MonoBehaviour
     {
         if (currency == null && Currency.Default == null)
         {
-            Debug.LogWarning(this.GetType() + ": No Currency specified. Disabling.");
+            Debug.LogWarning("On " + name + " script " + this.GetType() + " : No Currency specified. Disabling.");
             enabled = false;
             return;
         }//if
@@ -143,9 +143,6 @@ public class Generator : MonoBehaviour
             _clickInProgress = true;
             float timer = 0.0f;
 
-            if (_debugPrintTick)
-                print(name + " -> TICK (" + tickDurationInSeconds + "s) for $" + TotalAmountPerClick(currentLevel));
-
             while (timer < tickDurationInSeconds && generatorType == GeneratorType.Click)
             {
                 timer += Time.deltaTime;
@@ -155,6 +152,7 @@ public class Generator : MonoBehaviour
             timer = 0;
             currency.AddAmount(TotalAmountPerClick(currentLevel));
             _clickInProgress = false;
+            progress = 0;
         }
         yield return new WaitForEndOfFrame();
     }//Click

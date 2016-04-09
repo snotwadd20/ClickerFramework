@@ -19,7 +19,7 @@ public class ProgressBarText : MonoBehaviour, IValue
         set
         {
             if(displayProgress != null)
-                displayProgress.text = string.Format("{0}{1}{2}", prefix, (type == DisplayType.Percent ? Mathf.RoundToInt(100 * value) : 1 * value), postFix);
+                displayProgress.text = string.Format("{0}{1}{2}", prefix, (type == DisplayType.Percent ? Mathf.RoundToInt(Mathf.Min(100 * value, 100)) : value), postFix);
 
             _value = value;
         }

@@ -31,6 +31,12 @@ public class Buyable : MonoBehaviour, IPrice, IQuantity, IMaximum
         {
             currency = Currency.Default;
         }//else if
+
+        if (theButton == null)
+        {
+            theButton = gameObject.GetComponentInParent<Button>();
+            //print(theButton.onClick.ToString());
+        }//if
     }//Start
 
     // Update is called once per frame

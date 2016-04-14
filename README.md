@@ -33,10 +33,12 @@ I've included a demo Unity Scene (TestScene) with most of these things hooked up
 --- STUFF THAT GOES ON BUTTONS --- 
 (these do most of the work)
 
-- AddCurrencyBonus - Put on a button. Send "OnClick" message to add to a currency's global click or tick rates
+- AddCurrencyBonus.cs - Put on a button. Send "OnClick" message to add to a currency's global click or tick rates
 - Buyable.cs - Put on a button to make it a buyable (send "Buy" message to buy a thing). Disables button if you can't afford it. When a thing is bought, Buyable sends a "OnPurchased" message to all scripts on that gameObject in case you want to customize things that happen on buy. 
-- MultiplyCurrency - Use this on a button (send OnClick) to multiply the linkes currency total by n when clicked. Use with a buyable, and the price gets subtracted before the multiplication.
-- ScaleGeneratorSpeed - Use this on a button (send OnClick or Activate) to scale up the speed of a generator make it faster).
+- BuyableMultipleCurrency.cs - Just like a buyable, but use this one if you want to charge multiple currencies for a single item.
+- MultiplyCurrency.cs - Use this on a button (send OnClick) to multiply the linked currency total by n when clicked. Use with a buyable, and the price gets subtracted before the multiplication.
+- ScaleGeneratorSpeed.cs - Use this on a button (send OnClick or Activate) to scale up the speed of a generator make it faster).
+-ActionChain.cs and BuyableChain.cs are currently unsupported. Feel free to use them if you can understand the code. 
 
 --- WRAPPERS ---
 (Files to make this work with certain plugins. Delete these if you don't use those plugins)
